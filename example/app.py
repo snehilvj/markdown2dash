@@ -17,6 +17,7 @@ def render_toc(self, toc):
                 "textTransform": "capitalize",
                 "textDecoration": "none",
                 "paddingLeft": paddings[level],
+                "width": "fit-content"
             },
         )
         for level, text, hid in toc
