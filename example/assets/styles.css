@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap');
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+h2.m2d-heading {
+    font-weight: 300;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+h3.m2d-heading, h5.m2d-heading {
+    font-weight: 500;
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+
+h3.m2d-heading {
+    font-weight: 400;
+}
+
+.m2d-paragraph, .m2d-list {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.m2d-block-code {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.m2d-block-exec > *:first-child {
+    margin-bottom: 10px;
+}
+
+.m2d-block-exec {
+    margin-bottom: 10px;
+}
