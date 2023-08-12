@@ -31,7 +31,7 @@ class BlockExec(DirectivePlugin):
         attrs = {
             "module": module,
             "code": options.get("code", "true"),
-            "border": options.get("code", "true"),
+            "border": options.get("border", "true"),
         }
         return {"type": "block_exec", "attrs": attrs}
 

@@ -1,6 +1,5 @@
-from typing import Callable, Optional
-
 from mistune.directives import DirectivePlugin
+from typing import Callable, Optional
 
 from ..utils import create_heading_id
 
@@ -8,15 +7,22 @@ from ..utils import create_heading_id
 class TableOfContents(DirectivePlugin):
     NAME = "toc"
 
-    def __init__(self, render_func: Optional[Callable] = None):
+    def __init__(
+        self,
+        render_func: Optional[Callable] = None,
+        min_level: int = 1,
+        max_level: int = 5,
+    ):
         super().__init__()
         self.render_func = render_func
+        self.min_level = min_level
+        self.max_level = max_level
 
     def parse(self, block, m, state):
         options = dict(self.parse_options(m))
         attrs = {
-            "min_level": options.get("min_level", 1),
-            "max_level": options.get("max_level", 5),
+            "min_level": options.get("min_level", self.min_level),
+            "max_level": options.get("max_level", self.max_level),
         }
         return {"type": "block_toc", "attrs": attrs}
 

@@ -1,7 +1,6 @@
-from typing import Callable
-
 import mistune
 from mistune.directives import RSTDirective
+from typing import Callable, Optional
 
 from .directives.admonition import Admonition
 from .directives.exec import BlockExec
@@ -15,7 +14,12 @@ def default_toc_renderer(self, toc):
     raise NotImplementedError
 
 
-def parse(content: str, toc_renderer: Callable = default_toc_renderer):
+def parse(
+    content: str,
+    toc_renderer: Callable = default_toc_renderer,
+    toc_kwargs: Optional[dict] = None,
+):
+    toc_kwargs = toc_kwargs or {}
     parser = mistune.create_markdown(
         renderer=DashRenderer(),
         plugins=[
@@ -28,7 +32,7 @@ def parse(content: str, toc_renderer: Callable = default_toc_renderer):
                     Image(),
                     BlockExec(),
                     Kwargs(),
-                    TableOfContents(toc_renderer),
+                    TableOfContents(toc_renderer, **toc_kwargs),
                 ]
             ),
         ],
