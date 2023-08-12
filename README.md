@@ -193,7 +193,7 @@ Here's the output if you are viewing this in a dash app:
  
 ##### Table of Contents
 
-In order to get a table of contents using m2d, you need to pass a renderer functions that accepts a placeholder `self` and the actual inputs in the following way:
+In order to get a table of contents using m2d, you need to pass a renderer functions that accepts a placeholder `self` and the actual inputs `toc` in the following way:
 
 ```python
 
