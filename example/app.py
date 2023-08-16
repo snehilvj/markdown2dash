@@ -1,32 +1,12 @@
 import dash_mantine_components as dmc
-from dash import Dash, html
+from dash import Dash
 
 from markdown2dash import parse
 
 with open("../README.md") as f:
     md = f.read()
 
-
-def render_toc(self, toc):
-    paddings = {3: 0, 5: 40}
-    links = [
-        html.A(
-            dmc.Text(text, color="indigo", size="sm"),
-            href="#" + hid,
-            style={
-                "textTransform": "capitalize",
-                "textDecoration": "none",
-                "paddingLeft": paddings[level],
-                "width": "fit-content",
-            },
-        )
-        for level, text, hid in toc
-    ]
-    heading = dmc.Text("Table of Contents", mb=10, weight=500) if links else None
-    return dmc.Stack([heading, *links], spacing=4, mt=20, mb=30)
-
-
-layout = parse(md, toc_renderer=render_toc)
+layout = parse(md)
 
 app = Dash(__name__)
 

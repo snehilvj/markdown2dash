@@ -1,33 +1,16 @@
-from mistune.directives import DirectivePlugin
-from typing import Callable, Optional
+import dash_mantine_components as dmc
+from dash import html
+from dash.development.base_component import Component
 
+from .base import BaseDirective
 from ..utils import create_heading_id
 
 
-class TableOfContents(DirectivePlugin):
+class TableOfContents(BaseDirective):
     NAME = "toc"
 
-    def __init__(
-        self,
-        render_func: Optional[Callable] = None,
-        min_level: int = 1,
-        max_level: int = 5,
-    ):
-        super().__init__()
-        self.render_func = render_func
-        self.min_level = min_level
-        self.max_level = max_level
-
-    def parse(self, block, m, state):
-        options = dict(self.parse_options(m))
-        attrs = {
-            "min_level": options.get("min_level", self.min_level),
-            "max_level": options.get("max_level", self.max_level),
-        }
-        return {"type": "block_toc", "attrs": attrs}
-
     # noinspection PyMethodMayBeStatic
-    def toc_hook(self, md, state):
+    def hook(self, md, state):
         sections = []
         headings = []
 
@@ -38,22 +21,34 @@ class TableOfContents(DirectivePlugin):
                 headings.append(tok)
 
         for section in sections:
-            min_level = section["attrs"].pop("min_level")
-            max_level = section["attrs"].pop("max_level")
-
-            toc = []
+            attrs = section["attrs"]
+            table_of_contents = []
             for heading in headings:
                 level = heading["attrs"]["level"]
                 text = heading["text"]
-                if int(min_level) <= int(level) <= int(max_level):
-                    item = (level, text, create_heading_id(text))
-                    toc.append(item)
+                item = (level, text, create_heading_id(text))
+                table_of_contents.append(item)
 
-            section["attrs"]["toc"] = toc
+            attrs["table_of_contents"] = table_of_contents
+            attrs["title"] = attrs["title"] or "Table Of Contents"
 
-    # noinspection PyMethodOverriding
-    def __call__(self, directive, md):
-        directive.register(self.NAME, self.parse)
-        if md.renderer.NAME == "dash":
-            md.renderer.register("block_toc", self.render_func)
-            md.before_render_hooks.append(self.toc_hook)
+    def render(self, renderer, title: str, content: str, **options) -> Component:
+        table_of_contents = options.pop("table_of_contents")
+        min_level = int(options.pop("min_level", "3"))
+        paddings = {3: 0, 5: 40}
+        links = [
+            html.A(
+                dmc.Text(text, color="indigo", size="sm"),
+                href="#" + hid,
+                style={
+                    "textTransform": "capitalize",
+                    "textDecoration": "none",
+                    "paddingLeft": paddings[level],
+                    "width": "fit-content",
+                },
+            )
+            for level, text, hid in table_of_contents
+            if level >= min_level
+        ]
+        heading = dmc.Text(title, mb=10, weight=500) if links else None
+        return dmc.Stack([heading, *links], spacing=4, mt=20, mb=30, **options)

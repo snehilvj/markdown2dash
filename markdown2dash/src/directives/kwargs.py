@@ -2,36 +2,43 @@ import importlib
 import inspect
 
 import dash_mantine_components as dmc
+from dash import html
 from dash.development.base_component import Component
-from mistune.directives import DirectivePlugin
 
-from ..decorators import class_name
-
-
-@class_name
-def kwargs(self, component: str, library: str) -> Component:
-    lib = importlib.import_module(library)
-    clazz = getattr(lib, component)
-    docs = inspect.getdoc(clazz)
-    docs = docs.split("Keyword arguments:")[-1]
-    return dmc.Prism(docs, language="git", noCopy=True)
+from .base import BaseDirective
+from ..utils import convert_docstring_to_dict
 
 
-class Kwargs(DirectivePlugin):
+class Kwargs(BaseDirective):
     NAME = "kwargs"
 
-    def parse(self, block, m, state):
-        options = dict(self.parse_options(m))
-        component = self.parse_title(m)
-        # content = self.parse_content(m)
-        attrs = {
-            "component": component,
-            "library": options.get("library", "dash_mantine_components"),
-        }
-        return {"type": "block_kwargs", "attrs": attrs}
+    # noinspection PyMethodMayBeStatic
+    def hook(self, md, state):
+        sections = []
 
-    # noinspection PyMethodOverriding
-    def __call__(self, directive, md):
-        directive.register(self.NAME, self.parse)
-        if md.renderer.NAME == "dash":
-            md.renderer.register("block_kwargs", kwargs)
+        for tok in state.tokens:
+            if tok["type"] == self.block_name:
+                sections.append(tok)
+
+        for section in sections:
+            attrs = section["attrs"]
+            package = attrs.pop("library", "dash_mantine_components")
+            component_name = attrs["title"]
+            imported = importlib.import_module(package)
+            component = getattr(imported, component_name)
+            docstring = inspect.getdoc(component).split("Keyword arguments:")[-1]
+            attrs["kwargs"] = convert_docstring_to_dict(docstring)
+
+    def render(self, renderer, title: str, content: str, **options) -> Component:
+        data = options.pop("kwargs")
+        head = renderer.table_head(
+            [renderer.table_cell(col.title(), head=True) for col in data[0]]
+        )
+        body = renderer.table_body(
+            [
+                renderer.table_row([renderer.table_cell(col) for col in row.values()])
+                for row in data
+            ]
+        )
+        table = dmc.Table([head, body], **options)
+        return table

@@ -1,5 +1,11 @@
 # Change Log
 
+# 0.1.0a3
+
+### Changed
+
+* Make directives more extensible.
+
 # 0.1.0a2
 
 ### Added
