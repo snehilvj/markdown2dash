@@ -113,4 +113,5 @@ class DashRenderer(HTMLRenderer):
         return
 
     def render_tokens(self, tokens, state):
-        return list(self.iter_tokens(tokens, state))
+        components = list(self.iter_tokens(tokens, state))
+        return [comp for comp in components if comp]

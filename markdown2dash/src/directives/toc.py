@@ -30,7 +30,7 @@ class TableOfContents(BaseDirective):
                 table_of_contents.append(item)
 
             attrs["table_of_contents"] = table_of_contents
-            attrs["title"] = attrs["title"] or "Table Of Contents"
+            attrs["title"] = attrs["title"] or "Table of Contents"
 
     def render(self, renderer, title: str, content: str, **options) -> Component:
         table_of_contents = options.pop("table_of_contents")
