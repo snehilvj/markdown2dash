@@ -32,11 +32,11 @@ class DashRenderer(HTMLRenderer):
 
     @class_name
     def emphasis(self, text: str) -> Component:
-        return dmc.Text(text, fs="italic")
+        return dmc.Text(text, fs="italic", style={"display":"inline"})
 
     @class_name
     def strong(self, text: str) -> Component:
-        return dmc.Text(text, weight="bold")
+        return dmc.Text(text, weight="bold" , style={"display":"inline"})
 
     @class_name
     def codespan(self, text: str) -> Component:

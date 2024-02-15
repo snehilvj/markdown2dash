@@ -16,4 +16,8 @@ def todict(layout):
         }
         if hasattr(layout, 'type'):
             d.update({"type":layout.type})
+        if hasattr(layout, 'fs'):
+            d.update({"fs":layout.fs})
+        if hasattr(layout, 'weight'):
+            d.update({"weight":layout.weight})
         return d
