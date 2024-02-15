@@ -3,17 +3,23 @@ import tests.testutils as tu
 
 def test1():
     md = '''
-    # Header
+# Header
 
-    Text.
-    Continuation
-    '''
+Lorem
+ipsum
+'''
     layout = parse(md)
     d = tu.todict(layout)
     assert(
-        d == {
-            'type': 'Code', 
-            # -- A single \n does not appear to trigger a line break, but two do
-            'children': {'type': 'str', 'children': '# Header\n\nText.\nContinuation'}
-        }
+        d == [
+            {
+                'name': 'Title', 
+                'children': 'Header'
+            }, 
+            {
+                'name': 'Text', 
+                # A single \n does not appear to trigger a line break in rendered output
+                'children': ['Lorem', '\n', 'ipsum']
+            }
+        ]
     )

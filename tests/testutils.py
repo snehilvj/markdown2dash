@@ -2,18 +2,18 @@
 
 def todict(layout):
     "Simple partial converter of layout structure to dict"
-    ltype = type(layout).__name__
     if isinstance(layout, list):
         if len(layout) == 1:
             return todict(layout[0])
         else:
-            children = [todict(item) for item in layout]
+            return [todict(item) for item in layout]
     elif not hasattr(layout, 'children'):
-        children = str(layout)
+        return str(layout)
     else:
-        children = todict(layout.children)
-    d = {
-        "type": ltype,
-        "children" : children
-    }
-    return d
+        d = {
+            "name": type(layout).__name__,
+            "children" : todict(layout.children)
+        }
+        if hasattr(layout, 'type'):
+            d.update({"type":layout.type})
+        return d
