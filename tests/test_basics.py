@@ -10,8 +10,8 @@ ipsum
 '''
     layout = parse(md)
     d = tu.todict(layout)
-    assert(
-        d == [
+    tu.dcompare(
+        d, [
             {
                 'name': 'Title', 
                 'children': 'Header'

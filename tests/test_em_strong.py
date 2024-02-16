@@ -7,8 +7,8 @@ Normal, *em*, **strong**, ***strong em***, normal
 '''
     layout = parse(md)
     d = tu.todict(layout)
-    assert(
-        d == {
+    tu.dcompare(
+        d, {
             'name': 'Text', 
             'children': [
                 'Normal, ', 

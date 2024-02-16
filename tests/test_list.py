@@ -10,8 +10,8 @@ Prior line
 '''
     layout = parse(md)
     d = tu.todict(layout)
-    assert(
-        d == [
+    tu.dcompare(
+        d,  [
             {
                 'name': 'Text', 
                 'children': 'Prior line'
@@ -25,4 +25,38 @@ Prior line
                 ]
             }
         ]
+    )
+# --------------------------------------------------------
+def test2():
+    "Nested unordered list"
+    md = '''
+* Level 1 a
+   * Level 2 a
+   * Level 2 b
+* Level 1 b
+'''
+    layout = parse(md)
+    d = tu.todict(layout)
+    tu.dcompare(
+        d, {
+            'name': 'List', 
+            'children': [
+                {
+                    'name': 'ListItem', 
+                    'children': [
+                        'Level 1 a', 
+                        {
+                            'name': 'List', 
+                            'children': [
+                                {'name': 'ListItem', 'children': 'Level 2 a'}, 
+                                {'name': 'ListItem', 'children': 'Level 2 b'}
+                            ], 
+                            'type': 'unordered'
+                        }
+                    ]
+                }, 
+                {'name': 'ListItem', 'children': 'Level 1 b'}
+            ], 
+            'type': 'unordered'
+        }
     )

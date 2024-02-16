@@ -69,8 +69,8 @@ class DashRenderer(HTMLRenderer):
 
     @class_name
     def list_item(self, text: str) -> Component:
-        if isinstance(text[0], list):
-            text = text[0]
+        if isinstance(text, list):
+            text = [item[0] if isinstance(item, list) else item for item in text]
         return dmc.ListItem(text)
 
     @class_name
