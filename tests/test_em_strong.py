@@ -12,14 +12,15 @@ Normal, *em*, **strong**, ***strong em***, normal
             'name': 'Text', 
             'children': [
                 'Normal, ', 
-                {'name': 'Text', 'children': 'em', 'fs':'italic'}, 
+                {'name': 'Text', 'children': 'em', 'fs': 'italic', 'style': {'display': 'inline'}}, 
                 ', ', 
-                {'name': 'Text', 'children': 'strong', 'weight':'bold'}, 
+                {'name': 'Text', 'children': 'strong', 'weight': 'bold', 'style': {'display': 'inline'}}, 
                 ', ', 
                 {
                     'name': 'Text', 
                     'fs':'italic',
-                    'children': {'name': 'Text', 'children': 'strong em', 'weight':'bold'}
+                    'children': {'name': 'Text', 'children': 'strong em', 'weight':'bold', 'style': {'display': 'inline'}},
+                    'style': {'display': 'inline'}
                 }, 
                 ', normal'
             ]

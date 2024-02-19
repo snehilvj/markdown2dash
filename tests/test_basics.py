@@ -14,7 +14,8 @@ ipsum
         d, [
             {
                 'name': 'Title', 
-                'children': 'Header'
+                'children': 'Header',
+                'order': 1,
             }, 
             {
                 'name': 'Text', 

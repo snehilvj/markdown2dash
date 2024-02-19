@@ -60,3 +60,42 @@ def test2():
             'type': 'unordered'
         }
     )
+# --------------------------------------------------------
+def test3():
+    "Combination of nesting, emphasis and continuation lines"
+    md = '''
+* Item 1 *emphasis* normal
+with continuation
+    * Level 2
+with continuation
+* Item 2
+'''
+    layout = parse(md)
+    d = tu.todict(layout)
+    tu.dcompare(
+        d, {
+            'name': 'List', 
+            'children': [
+                {
+                    'name': 'ListItem', 
+                    'children': [
+                        'Item 1 ', 
+                        {'name': 'Text', 'children': 'emphasis', 'fs': 'italic', 'style': {'display': 'inline'}}, 
+                        ' normal', 
+                        '\n', 
+                        'with continuation', 
+                        {
+                            'name': 'List', 
+                            'children': {
+                                'name': 'ListItem', 
+                                'children': ['Level 2', '\n', 'with continuation']
+                            }, 
+                            'type': 'unordered'
+                        }
+                    ]
+                }, 
+                {'name': 'ListItem', 'children': 'Item 2'}
+            ], 
+            'type': 'unordered'
+        }
+    )

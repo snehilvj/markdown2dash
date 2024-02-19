@@ -7,20 +7,31 @@ def todict(layout):
             return todict(layout[0])
         else:
             return [todict(item) for item in layout]
-    elif not hasattr(layout, 'children'):
-        return str(layout)
-    else:
+    elif hasattr(layout, '__module__') and layout.__module__.split('.')[0] == "dash_mantine_components":   #hasattr(layout, 'children'):
         d = {
             "name": type(layout).__name__,
-            "children" : todict(layout.children)
         }
+        if hasattr(layout, 'children'):
+            d.update({"children":todict(layout.children)})
         if hasattr(layout, 'type'):
             d.update({"type":layout.type})
         if hasattr(layout, 'fs'):
             d.update({"fs":layout.fs})
         if hasattr(layout, 'weight'):
             d.update({"weight":layout.weight})
+        if hasattr(layout, 'src'):
+            d.update({"src":layout.src})
+        if hasattr(layout, 'alt'):
+            d.update({"alt":layout.alt})
+        if hasattr(layout, 'style'):
+            d.update({"style":layout.style})
+        if hasattr(layout, 'styles'):
+            d.update({"styles":layout.styles})
+        if hasattr(layout, 'order'):
+            d.update({"order":layout.order})
         return d
+    else:
+        return str(layout)
 
 def dcompare(d1, d2, path="(root)"):
     "Comparison of data structures that gives useful info on where a mismatch is"
