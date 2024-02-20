@@ -1,3 +1,7 @@
+# In case it is being run as a submodule
+import sys
+sys.path.append('./markdown2dash')
+
 from markdown2dash import parse
 import tests.testutils as tu
 
