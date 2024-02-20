@@ -10,10 +10,10 @@ from .decorators import class_name
 from .utils import create_heading_id
 
 # -- For image shape decoding
-import cv2
-import numpy as np
 from urllib.request import urlopen
 from dash import get_app
+import imagesize
+import io
 
 # noinspection PyMethodMayBeStatic
 class DashRenderer(HTMLRenderer):
@@ -59,22 +59,21 @@ class DashRenderer(HTMLRenderer):
 
     @class_name
     def image(self, text: str, url: str, title=None):
-        def get_image_width(url, readFlag=cv2.IMREAD_COLOR, default=200):
-            # https://stackoverflow.com/questions/21061814/how-can-i-read-an-image-from-an-internet-url-in-python-cv2-scikit-image-and-mah
+        def get_image_width(url, default=200):
             if url[0] == "/":   # A relative URL
                 try:
                     flaskroot = get_app().server.root_path
                     filepath = flaskroot + url
-                    image = cv2.imread(filepath) 
-                    return image.shape[1]
+                    width, _height = imagesize.get(filepath)
+                    return width
                 except:
                     return default
             else:               # Assume an actual url
                 try:
-                    resp = urlopen(url)
-                    npimage = np.asarray(bytearray(resp.read()), dtype="uint8")
-                    image = cv2.imdecode(npimage, readFlag)
-                    return image.shape[1]
+                    raw = urlopen(str(url)).read()
+                    fhandle = io.BytesIO(raw)
+                    width, _height = imagesize.get(fhandle)
+                    return width
                 except:
                     return default
 
