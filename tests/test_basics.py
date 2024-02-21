@@ -1,0 +1,31 @@
+# In case it is being run as a submodule
+import sys
+if './markdown2dash' not in sys.path:
+    sys.path.append('./markdown2dash')
+
+from markdown2dash import parse
+import tests.testutils as tu
+
+def test1():
+    md = '''
+# Header
+
+Lorem
+ipsum
+'''
+    layout = parse(md)
+    d = tu.todict(layout)
+    tu.dcompare(
+        d, [
+            {
+                'name': 'Title', 
+                'children': 'Header',
+                'order': 1,
+            }, 
+            {
+                'name': 'Text', 
+                # A single \n does not appear to trigger a line break in rendered output
+                'children': ['Lorem', '\n', 'ipsum']
+            }
+        ]
+    )
