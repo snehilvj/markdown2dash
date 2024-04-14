@@ -39,6 +39,7 @@ dash-mantine-components = "^0.14"
 mistune = "^3.0.1"
 jsonpath = "^0.82"
 dash-iconify = "^0.1.2"
+gunicorn = "^21.2.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"

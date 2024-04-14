@@ -20,6 +20,7 @@ stylesheets = [
 ]
 
 app = Dash(__name__, external_stylesheets=stylesheets)
+server = app.server
 
 app.layout = dmc.MantineProvider(
     dmc.Container(layout, size="lg", p=20),
