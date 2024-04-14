@@ -11,7 +11,7 @@ h2.m2d-heading {
     margin-bottom: 30px;
 }
 
-h3.m2d-heading, h5.m2d-heading {
+h3.m2d-heading, h5.m2d-heading, h4.m2d-heading {
     font-weight: 500;
     margin-top: 35px;
     margin-bottom: 10px;
@@ -22,7 +22,6 @@ h3.m2d-heading {
 }
 
 .m2d-paragraph, .m2d-list {
-    font-size: 15px;
     line-height: 1.5;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -39,4 +38,12 @@ h3.m2d-heading {
 
 .m2d-block-exec {
     margin-bottom: 10px;
+}
+
+.m2d-block-spoiler {
+    margin-bottom: 40px;
+}
+
+thead > * .m2d-table-cell {
+    font-weight: 500
 }

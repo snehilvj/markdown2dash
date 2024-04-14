@@ -1,13 +1,21 @@
-from typing import List
 from urllib.parse import urlparse
 
 import dash_mantine_components as dmc
-from dash import html
 from dash.development.base_component import Component
 from mistune import safe_entity, HTMLRenderer
 
 from .decorators import class_name
 from .utils import create_heading_id
+
+
+def flatten(xs):
+    result = []
+    if isinstance(xs, (list, tuple)):
+        for x in xs:
+            result.extend(flatten(x))
+    else:
+        result.append(xs)
+    return result
 
 
 # noinspection PyMethodMayBeStatic
@@ -32,11 +40,11 @@ class DashRenderer(HTMLRenderer):
 
     @class_name
     def emphasis(self, text: str) -> Component:
-        return dmc.Text(text, fs="italic")
+        return dmc.Text(text, fs="italic", display="inline")
 
     @class_name
     def strong(self, text: str) -> Component:
-        return dmc.Text(text, weight="bold")
+        return dmc.Text(text, fw="bold", display="inline")
 
     @class_name
     def codespan(self, text: str) -> Component:
@@ -59,7 +67,7 @@ class DashRenderer(HTMLRenderer):
             info = safe_entity(info.strip())
         if info:
             lang = info.split(None, 1)[0]
-            return dmc.Prism(code, language=lang)
+            return dmc.CodeHighlight(code, language=lang)
         else:
             return dmc.Code(code)
 
@@ -68,17 +76,14 @@ class DashRenderer(HTMLRenderer):
         return dmc.Blockquote(text)
 
     @class_name
-    def list_item(self, text: str) -> Component:
-        if isinstance(text[0], list):
-            text = text[0]
+    def list_item(self, text: list) -> Component:
+        text = flatten(text)
         return dmc.ListItem(text)
 
     @class_name
-    def list(self, text: List[dmc.ListItem], ordered: bool, **attrs) -> Component:
+    def list(self, text, ordered: bool, **attrs) -> Component:
         return dmc.List(
-            text,
-            type="ordered" if ordered else "unordered",
-            withPadding=True,
+            text, type="ordered" if ordered else "unordered", withPadding=True
         )
 
     @class_name
@@ -95,23 +100,34 @@ class DashRenderer(HTMLRenderer):
 
     @class_name
     def table_head(self, text: str) -> Component:
-        return html.Thead(html.Tr(text))
+        return dmc.TableThead(self.table_row(text))
 
     @class_name
     def table_body(self, text: Component) -> Component:
-        return html.Tbody(text)
+        return dmc.TableTbody(text)
 
     @class_name
     def table_row(self, text: str) -> Component:
-        return html.Tr(text)
+        return dmc.TableTr(text)
 
     @class_name
-    def table_cell(self, text: str, align=None, head=False):
-        return html.Th(text) if head else html.Td(text)
+    def table_cell(self, text: str, align=None, head=False) -> Component:
+        return dmc.TableTh(text) if head else dmc.TableTd(text)
 
     def blank_line(self) -> None:
         return
 
+    @class_name
+    def block_spoiler(self, children: Component) -> Component:
+        return dmc.Spoiler(children, hideLabel="Show less", showLabel="Show more")
+
+    @class_name
+    def task_list_item(self, text: list, checked: bool, **attrs):
+        text = flatten(text)
+        return dmc.ListItem(
+            dmc.Checkbox(dmc.Text(text), checked=checked),
+            style={"listStyleType": "none"},
+        )
+
     def render_tokens(self, tokens, state):
-        components = list(self.iter_tokens(tokens, state))
-        return [comp for comp in components if comp]
+        return list(self.iter_tokens(tokens, state))

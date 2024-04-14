@@ -21,6 +21,6 @@ class BlockExec(BaseDirective):
         ]
         if code == "true":
             source = inspect.getsource(imported).replace("component = ", "", 1)
-            prism = dmc.Prism(source, language="python")
+            prism = dmc.CodeHighlight(source, language="python")
             components.append(prism)
         return dmc.Box(components, **options)

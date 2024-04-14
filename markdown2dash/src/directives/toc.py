@@ -35,10 +35,10 @@ class TableOfContents(BaseDirective):
     def render(self, renderer, title: str, content: str, **options) -> Component:
         table_of_contents = options.pop("table_of_contents")
         min_level = int(options.pop("min_level", "3"))
-        paddings = {3: 0, 5: 40}
+        paddings = {3: 0, 4: 30, 5: 60}
         links = [
             html.A(
-                dmc.Text(text, color="indigo", size="sm"),
+                dmc.Text(text, c="indigo"),
                 href="#" + hid,
                 style={
                     "textTransform": "capitalize",
@@ -50,5 +50,5 @@ class TableOfContents(BaseDirective):
             for level, text, hid in table_of_contents
             if level >= min_level
         ]
-        heading = dmc.Text(title, mb=10, weight=500) if links else None
-        return dmc.Stack([heading, *links], spacing=4, mt=20, mb=30, **options)
+        heading = dmc.Text(title, mb=10, w=500) if links else None
+        return dmc.Stack([heading, *links], gap=4, mt=20, mb=30, **options)
