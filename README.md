@@ -157,11 +157,11 @@ You can use SourceCode directive to display code from a file in your project. Th
 Here's the css used to style this page.
 
 ```markdown
-.. source::markdown2dash/example/assets/styles.css
+.. source::example/assets/styles.css
     :language: css
 ```
 
-.. source::assets/styles.css
+.. source::example/assets/styles.css
     :language: css
 
 #### Admonition
@@ -349,7 +349,7 @@ You can use the exec block to add charts in your app. The following block will r
 You can create a new directive by extending the BaseDirective class and creating a new parser. Here's how you can add a
 new directive that adds a scroll to top button in the bottom right of your app.
 
-.. source::scroll.py
+.. source::example/scroll.py
 
 The associated css class name will be: `m2d-block-scroll`.
 

@@ -2,9 +2,9 @@ import dash_mantine_components as dmc
 from dash import Dash
 
 from markdown2dash import create_parser
-from scroll import ScrollToTop
+from .scroll import ScrollToTop
 
-with open("../README.md") as f:
+with open("README.md") as f:
     md = f.read()
 
 parse = create_parser([ScrollToTop()])
