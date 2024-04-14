@@ -26,6 +26,12 @@ pip install markdown2dash
 poetry add markdown2dash
 ```
 
+.. admonition::Note
+    :icon: radix-icons:info-circled
+    :color: red
+
+    Latest dmc is based on REACT 18. You need to set REACT_VERSION=18.2.0 before starting the app. 
+
 ### Quickstart
 
 #### Parsing M2D's README
