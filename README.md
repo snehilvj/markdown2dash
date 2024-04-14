@@ -7,7 +7,7 @@ Markdown-2-Dash or M2D is a standalone package forked out of source code of [off
 Some form of M2D has always existed since the inception of the documentation, but I figured more people can make use of this to document their dash
 apps or component libraries.
 
-Have a look [here](https://github.com/snehilvj/markdown2dash/tree/main/preview) to see how this README would look after parsing with M2D. The render also
+Have a look [here](https://markdown2dash.onrender.com) to see how this README would look after parsing with M2D. The render also
 works perfectly with dark mode without any extra code.
 
 .. admonition::Note
