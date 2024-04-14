@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "markdown2dash"
-version = "0.1.0a3"
+version = "0.1.0"
 description = "Render markdown into a dash layout using dash-mantine-components"
 authors = ["Snehil Vijay <snehilvj@outlook.com>"]
 license = "MIT"
@@ -35,7 +35,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.7"
 dash = "^2.11.1"
-dash-mantine-components = "0.13.0a3"
+dash-mantine-components = "^0.14"
 mistune = "^3.0.1"
 jsonpath = "^0.82"
 dash-iconify = "^0.1.2"

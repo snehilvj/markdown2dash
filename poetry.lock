@@ -159,7 +159,7 @@ python-versions = "*"
 
 [[package]]
 name = "dash-mantine-components"
-version = "0.13.0a3"
+version = "0.14.0"
 description = "Plotly Dash Components based on Mantine"
 category = "main"
 optional = false
@@ -202,7 +202,7 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "idna"
-version = "3.6"
+version = "3.7"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
@@ -678,7 +678,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7"
-content-hash = "c5ad8e3d513348804ab4100dccac91a94aad70fb4cc81798f8898c1dac9cd24b"
+content-hash = "a498c12d3fca10d823cc2b2de1ae2410ee965c972f728f6d133e0ac6d62d076a"
 
 [metadata.files]
 black = []

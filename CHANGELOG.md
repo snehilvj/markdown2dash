@@ -1,5 +1,15 @@
 # Change Log
 
+# 0.1.0
+
+### Changed
+
+* Updated to work with dmc 0.14.
+
+### Added
+
+* New directives.
+
 # 0.1.0a3
 
 ### Changed
