@@ -9,7 +9,7 @@ component = dmc.Affix(
         id="theme-switch",
         checked=False,
         size="lg",
-        radius="sm"
+        radius="sm",
     ),
     position={"top": 20, "right": 20},
 )

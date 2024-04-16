@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "markdown2dash"
-version = "0.1.0"
+version = "0.1.1"
 description = "Render markdown into a dash layout using dash-mantine-components"
 authors = ["Snehil Vijay <snehilvj@outlook.com>"]
 license = "MIT"

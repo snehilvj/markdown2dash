@@ -1,13 +1,13 @@
 import dash_mantine_components as dmc
 from dash import Dash
 
-from markdown2dash import create_parser
+from markdown2dash import create_parser, DEFAULT_DIRECTIVES
 from .scroll import ScrollToTop
 
 with open("README.md") as f:
     md = f.read()
 
-parse = create_parser([ScrollToTop()])
+parse = create_parser(DEFAULT_DIRECTIVES + [ScrollToTop()])
 layout = parse(md)
 
 stylesheets = [

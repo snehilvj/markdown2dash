@@ -2,7 +2,6 @@ import importlib
 import inspect
 
 import dash_mantine_components as dmc
-from dash import html
 from dash.development.base_component import Component
 
 from .base import BaseDirective
@@ -31,14 +30,19 @@ class Kwargs(BaseDirective):
 
     def render(self, renderer, title: str, content: str, **options) -> Component:
         data = options.pop("kwargs")
-        head = renderer.table_head(
-            [renderer.table_cell(col.title(), head=True) for col in data[0]]
-        )
-        body = renderer.table_body(
-            [
-                renderer.table_row([renderer.table_cell(col) for col in row.values()])
-                for row in data
-            ]
-        )
-        table = dmc.Table([head, body], **options)
+        if data:
+            head = renderer.table_head(
+                [renderer.table_cell(col.title(), head=True) for col in data[0]]
+            )
+            body = renderer.table_body(
+                [
+                    renderer.table_row(
+                        [renderer.table_cell(col) for col in row.values()]
+                    )
+                    for row in data
+                ]
+            )
+            table = dmc.Table([head, body], **options)
+        else:
+            table = None
         return table

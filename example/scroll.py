@@ -5,7 +5,7 @@ from dash import html, Output, Input, clientside_callback, MATCH
 from dash.development.base_component import Component
 from dash_iconify import DashIconify
 
-from markdown2dash import BaseDirective, create_parser
+from markdown2dash import BaseDirective
 
 
 class ScrollToTop(BaseDirective):
@@ -37,6 +37,3 @@ class ScrollToTop(BaseDirective):
             position={"bottom": 20, "right": 20},
         )
         return component
-
-
-parser = create_parser([ScrollToTop()])

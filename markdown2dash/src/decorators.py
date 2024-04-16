@@ -9,7 +9,8 @@ def class_name(func):
     def wrapper(*args, **kwargs):
         ret = func(*args, **kwargs)
         name = func.__name__ if inspect.isfunction(func) else func.__self__.block_name
-        ret.className = create_class_name(name)
+        if ret is not None:
+            ret.className = create_class_name(name)
 
         return ret
 

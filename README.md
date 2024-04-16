@@ -353,6 +353,14 @@ new directive that adds a scroll to top button in the bottom right of your app.
 
 The associated css class name will be: `m2d-block-scroll`.
 
+Create a new parser using your new directive like below:
+
+```python
+from markdown2dash import create_parser, DEFAULT_DIRECTIVES
+
+parse = create_parser(DEFAULT_DIRECTIVES + [ScrollToTop()])
+layout = parse(content)
+```
 And here's how you can use it in the markdown.
 
 ```markdown

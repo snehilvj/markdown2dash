@@ -25,7 +25,6 @@ DEFAULT_DIRECTIVES = [
 
 def create_parser(directives: Optional[List[DirectivePlugin]] = None):
     directives = directives or []
-    directives += DEFAULT_DIRECTIVES
     return mistune.create_markdown(
         renderer=DashRenderer(),
         plugins=[
@@ -39,4 +38,4 @@ def create_parser(directives: Optional[List[DirectivePlugin]] = None):
     )
 
 
-parse = create_parser()
+parse = create_parser(DEFAULT_DIRECTIVES)

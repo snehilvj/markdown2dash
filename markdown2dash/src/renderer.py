@@ -130,4 +130,6 @@ class DashRenderer(HTMLRenderer):
         )
 
     def render_tokens(self, tokens, state):
-        return list(self.iter_tokens(tokens, state))
+        components = list(self.iter_tokens(tokens, state))
+        components = [comp for comp in components if comp is not None]
+        return components
