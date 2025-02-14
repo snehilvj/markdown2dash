@@ -1,5 +1,9 @@
 # Change Log
 
+# 0.1.2
+
+- updated dependencies to work with dmc 1.0 and dash 3
+
 # 0.1.1
 
 ### Fixed
